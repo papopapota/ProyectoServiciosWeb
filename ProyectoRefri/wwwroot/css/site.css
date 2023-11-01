@@ -16,3 +16,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.formulario div input:focus {
+    background-color: white !important;
+}
+
+.iconPage {
+    width: 20em;
+    border-radius: 30em;
+   /* overflow: hidden;*/
+    box-shadow: 10px 5px 5px #dddddd;
+}
+.nav2 {
+    background-color: black !important;
+   
+}
+.NavA {
+    color: white !important;
+    font-weight: 700;
+}
