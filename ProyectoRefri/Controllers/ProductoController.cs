@@ -12,6 +12,11 @@ namespace ProyectoRefri.Controllers
             _confi = confi;
         }
 
+        //LISTAR CLIENTE VISTA
+        public ActionResult ListarCliente()
+        {
+            return View();
+        }
 
         // GET: ProductoController
         public ActionResult Index()
