@@ -4,8 +4,9 @@
     ViewData["Title"] = "Modificar";
 }
 
-
-<h4>Modificar Producto</h4>
+<div class="container">
+    <br /><br />
+<h4 class="mt-5">Modificar Producto</h4>
 <hr />
 <div>
     <a style="font-size:1.2em;text-decoration:none;" asp-action="Index">Regresar</a>
@@ -60,7 +61,7 @@
         <img class="iconPage" src="https://cdn-icons-png.flaticon.com/512/1170/1170577.png" />
     </div>
 </div>
-
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

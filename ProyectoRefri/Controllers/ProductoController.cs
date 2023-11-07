@@ -12,7 +12,7 @@ namespace ProyectoRefri.Controllers
             _confi = confi;
         }
 
-        //LISTAR CLIENTE VISTA
+        //LISTAR CLIENTE VISTA 
         public ActionResult ListarCliente()
         {
             return View();

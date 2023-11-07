@@ -7,6 +7,9 @@ html {
     font-size: 16px;
   }
 }
+body{
+    margin: 0px;
+}
 /*
 html {
   position: relative;
@@ -30,6 +33,7 @@ body {
 }
 .nav2 {
     background-color: #32474A !important;
+    margin: 0 0 0 0 !important;
 }
 .NavA {
     color: white !important;
@@ -66,4 +70,37 @@ body {
     width: 36vw;
     height: 8 0%;
     border-radius: 20px;
+}
+
+.contenedorimg {
+    background-image: url('../img/e.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    padding: 200px;
+    background-color: rgb(42, 42, 41);
+    background-blend-mode: soft-light;
+}
+
+    .contenedorimg h2 {
+        color: white;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: 60px;
+        letter-spacing: 15px;
+        position: relative;
+        font-weight: bold;
+    }
+
+.listaProductos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.cuadrado {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
 }
