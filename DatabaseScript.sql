@@ -105,7 +105,7 @@ create table tb_membrecia(
 idMembrecia int primary key,
 descripcion varchar(250),
 imagen varchar(60),
-precio DECIMAL(10, 2) NOT NULL,
+precio DECIMAL(10, 2) NOT NULL
 
 );
 create table tb_detalleMenmbrecia(
