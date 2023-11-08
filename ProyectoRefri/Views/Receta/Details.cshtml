@@ -3,40 +3,65 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Details</h1>
-
+<style>
+    .img-container {
+        text-align: center;
+    }
+</style>
+<br />
+<br />
+<!--BANER INDEX-->
 <div>
-    <h4>RecetaModel</h4>
+    <div class="contenedorimgRec">
+        <div>
+            <br><br><br>
+            <h2>ASI COMO<br>EN CASA,<br>ASI ES... </h2>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<div>
+    <h1>@Html.DisplayFor(model => model.nombre)</h1>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.idReceta)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.idReceta)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.imagen)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.imagen)
-        </dd>
+    <div class="row" style="background-color: wheat">
+        <div class="col-md-6", style="text-align: center;">
+            <img class="iconPage" src="https://chewinghappiness.com/wp-content/uploads/2019/08/Tallarin-Rojo-2.jpg" />
+        </div>
+        <div class="col md-6" , style="text-align: left;">
+            <p>INGREDIENTES:</p>
+            <ol>
+                <li>Ingrendiente numero 1</li>
+                <li>Ingrendiente numero 2</li>
+                <li>Ingrendiente numero 3</li>
+                <li>Ingrendiente numero 4</li>
+                <li>Ingrendiente numero 5</li>
+                <li>Ingrendiente numero 6</li>
+            </ol>
+        </div>
+    </div>
+    <br />
+    <dl>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.preparacion)
         </dt>
-        <dd class = "col-sm-10">
+        <br />
+        <dd class = "col-sm-2">
+            <!--Eliminar cuando se llame correctamente a una receta -->
+            <ol>
+                <li>Paso numero 1</li>
+                <li>Paso numero 2</li>
+                <li>Paso numero 3</li>
+                <li>Paso numero 4</li>
+                <li>Paso numero 5</li>
+                <li>Paso numero 6</li>
+            </ol>
             @Html.DisplayFor(model => model.preparacion)
         </dd>
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Edit", "Edit", new {/*id = Model.idReceta*/  }) |
+    <a asp-action="#" asp-controller="#" class="btn btn-danger">Regresar</a>
 </div>
