@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoRefri.Models;
 
 namespace ProyectoRefri.Controllers
 {
@@ -28,7 +29,15 @@ namespace ProyectoRefri.Controllers
         {
             return View();
         }
+        public ActionResult Actualizar()
+        {
+            return View();
+        }
+        UsuarioModel Buscar(int id)
+        {
 
+            return null;
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult IniciarSesion(IFormCollection collection)

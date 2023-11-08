@@ -33,6 +33,11 @@ namespace ProyectoRefri.Controllers
             return View();
         }
 
+        public ActionResult Details(int id) 
+        {
+            return View();
+        }
+
         #endregion
 
 
