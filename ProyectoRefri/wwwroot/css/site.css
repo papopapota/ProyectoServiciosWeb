@@ -28,10 +28,17 @@ body {
 }
 
 .iconPage {
+    height: 20em;
     width: 20em;
     border-radius: 30em;
-   /* overflow: hidden;*/
+    overflow: hidden;
     box-shadow: 10px 5px 5px #dddddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.iconPage img {
+       height: 16em;
 }
 .nav2 {
     background-color: #32474A !important;
@@ -154,3 +161,11 @@ body {
     margin-left: -50px;
 }
 
+.nav-item a {
+    font-size: 1.5em;
+    padding: 0em 2.5em;
+    color: white !important;
+}
+li.nav-item {
+    padding: 0em 2em;
+}
