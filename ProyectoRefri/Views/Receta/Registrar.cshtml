@@ -13,7 +13,7 @@
     </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Registrar">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -32,9 +32,33 @@
                 <input asp-for="imagen" type="file" class="form-control rounded-pill bg-light" />
                 <span asp-validation-for="imagen" class="text-danger"></span>
             </div>
+            <table class="table table-hover" id="tableProducto">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                            <th colspan="2"><button class="btn" onclick="agregarFila()"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #1dc11a;"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select class="form-select">
+                                <option value="-1">elige un producto</option>
+                                <option value="1">opcion 1</option>
+                                <option value="2">opcion 2</option>
+                                <option value="3">opcion 3</option>
+                            </select>
+                        </td>
+                        <td><input class="form-control" type="text" /></td>
+                        <td><input class="form-control" type="text" /></td>
+                    </tr>
+                </tbody>
+            </table>
             <div class="form-group">
                 <label asp-for="preparacion" class="control-label"></label>
-                <input asp-for="preparacion" class="form-control rounded-pill bg-light" />
+                <textarea rows="10" cols="4" asp-for="preparacion" class="form-control"> </textarea>
                 <span asp-validation-for="preparacion" class="text-danger"></span>
             </div>
             <div class="form-group">
