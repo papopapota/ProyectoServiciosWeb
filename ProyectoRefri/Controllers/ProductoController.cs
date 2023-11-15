@@ -17,6 +17,11 @@ namespace ProyectoRefri.Controllers
         {
             return View();
         }
+        //LISTAR ADMIN VISTA 
+        public ActionResult ListarAdmin() 
+        {
+            return View(); 
+        }
 
         // GET: ProductoController
         public ActionResult Index()
