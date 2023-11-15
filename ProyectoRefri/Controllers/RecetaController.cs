@@ -41,6 +41,13 @@ namespace ProyectoRefri.Controllers
             return View();
         }
 
+        // VISTA INFORMACIÓN REFRI (DONDE SE VERAN CUANTAS COSAS TIENES EN TU REFRI equide)
+        public ActionResult RefriContenido(int id)
+        {
+            return View();
+        }
+
+
         #endregion
 
 
