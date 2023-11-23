@@ -6,19 +6,19 @@ namespace ProyectoRefri.Models
     {
         [Required]
         [Display(Name = "Id")]
-        public int idReceta { get; set; }
+        public string idReceta { get; set; }
 
         [Required]
         [Display(Name = "Nombre")]
-        public string nombre { get; set; }
+        public string? nombre { get; set; }
 
         [Required]
         [Display(Name = "Imagen")]
-        public string imagen { get; set; }
+        public string? imagen { get; set; }
 
         [Required]
         [Display(Name = "Preparación")]
-        public string preparacion { get; set; }
+        public string? preparacion { get; set; }
        
     }
 }
