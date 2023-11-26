@@ -221,4 +221,40 @@ insert into tb_detalleRefri values(8, 4 , 'P005',10);
 
 
 
+--Procedures => listarRecetas, eliminarRecetas, mergeRecetas
+create proc sp_listar_receta
+as
+begin
+	select * from tb_receta
+end
+exec sp_listar_receta
+
+
+
+create proc sp_delete_receta
+@IdReceta char
+as
+begin
+	delete from tb_receta where idReceta = @IdReceta
+end
+go
+
+create proc sp_merge_receta
+@IdReceta char,
+@Nombre varchar,
+@Imagen varchar,
+@Preparacion varchar
+as
+begin
+
+Merge tb_receta as target
+using(Select @IdReceta, @Nombre, @Imagen, @Preparacion) as 
+		source(idReceta,nombre,imagen,preparacion)
+on target.idReceta=source.idReceta
+When Matched then
+   Update Set target.nombre=source.nombre, target.imagen=source.imagen,
+   target.preparacion=source.preparacion
+When not Matched then
+   Insert Values(source.idReceta, source.nombre, source.imagen, source.preparacion);
+end
 
