@@ -2,7 +2,7 @@
 use DB_RefriVirtual
 go
 
-create or alter procedure	
+create or alter procedure usp_producto_listarVCliente	
 as
 begin
 	select idProducto, nombre, precio, stock, descripcion, imagen from tb_producto where estado = 1
