@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
+using ProyectoRefri.Models;
+using System.Data;
 
 namespace ProyectoRefri.Controllers
 {
@@ -13,9 +17,12 @@ namespace ProyectoRefri.Controllers
         }
 
         //LISTAR CLIENTE VISTA 
-        public ActionResult ListarCliente()
+        public async Task<ActionResult> ListarCliente()
         {
-            return View();
+            if (HttpContext.Session.GetString("Canasta") == null)
+                HttpContext.Session.SetString("Canasta", JsonConvert.SerializeObject(new List<ProductoModel>()));
+
+            return View(await Task.Run(() => ListarVCliente()));
         }
         //LISTAR ADMIN VISTA 
         public ActionResult ListarAdmin() 
@@ -97,5 +104,34 @@ namespace ProyectoRefri.Controllers
                 return View();
             }
         }
-    }
+
+
+
+        #region Métodos
+        IEnumerable<ProductoModel> ListarVCliente()
+        {
+
+            List<ProductoModel> lista = new List<ProductoModel>();
+            SqlConnection cn = new(_confi["ConnectionStrings:cn"]);
+            SqlCommand cmd = new SqlCommand("usp_producto_listarVCliente", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                lista.Add(new ProductoModel
+                {
+                    idProducto = dr.GetString(0),
+                    nombre = dr.GetString(1),
+                    precio = dr.GetDouble(2),
+                    stock = dr.GetInt32(3),
+                    descripcion = dr.GetString(4)
+                }); 
+            }
+            cn.Close();
+            return lista;
+
+        }
+            #endregion
+        }
 }

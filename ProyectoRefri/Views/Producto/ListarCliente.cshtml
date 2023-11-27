@@ -23,45 +23,29 @@
 <div class="container">
     <div class="listaProductos">
         <!-- AQUI VA EL FOR PARA REPETIR ESTA CARTA -->
+        @foreach (var item in Model)
+        {
 
         <div class="card" style="flex-direction: row;">
-            <img src="../img/1.png" class="card-img-top cuadrado">
+
+                <img src="@Url.Content(String.Format("~/img/{0}.jpg",item.idProducto))"class="card-img-top cuadrado" alt ="Imagen no disponible">
             <div class="card-body">
-                <h5 class="card-title">Producto1</h5>
-                <p class="card-text">Aqui va la descripcion del producto</p>
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.idProducto) | @Html.DisplayFor(modelItem => item.nombre)</h5>
+                    <p class="card-text">Cantidad: @Html.DisplayFor(modelItem => item.descripcion)</p>
+                    <p class="card-text">
+                        Precio:
+                        @Html.DisplayFor(modelItem => item.precio)
+                    </p>
+                    <p class="card-text">Unidades disponibles: 
+                        @Html.DisplayFor(modelItem => item.stock)</p>
+                   
+
                 <a href="#" class="btn btn-info">Refri</a>
                 <a href="#" class="btn btn-success">Comprar</a>
             </div>
         </div>
-        <div class="card" style="flex-direction: row;">
-            <img src="../img/1.png" class="card-img-top cuadrado">
-            <div class="card-body">
-                <h5 class="card-title">Producto1</h5>
-                <p class="card-text">Aqui va la descripcion del producto</p>
-                <a href="#" class="btn btn-info">Refri</a>
-                <a href="#" class="btn btn-success">Comprar</a>
-            </div>
-        </div><div class="card" style="flex-direction: row;">
-            <img src="../img/1.png" class="card-img-top cuadrado">
-            <div class="card-body">
-                <h5 class="card-title">Producto1</h5>
-                <p class="card-text">Aqui va la descripcion del producto</p>
-                <a href="#" class="btn btn-info">Refri</a>
-                <a href="#" class="btn btn-success">Comprar</a>
-            </div>
-        </div><div class="card" style="flex-direction: row;">
-            <img src="../img/1.png" class="card-img-top cuadrado">
-            <div class="card-body">
-                <h5 class="card-title">Producto1</h5>
-                <p class="card-text">Aqui va la descripcion del producto</p>
-                <a href="#" class="btn btn-info">Refri</a>
-                <a href="#" class="btn btn-success">Comprar</a>
-            </div>
-        </div>
-        
-    
-    
-
+        }
+       
     </div>
 </div>
 

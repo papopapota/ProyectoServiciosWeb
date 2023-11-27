@@ -1,0 +1,12 @@
+-- PROCEDIMIENTOS BRAYAN (CRUD PRODUCTOS)
+use DB_RefriVirtual
+go
+
+create or alter procedure	
+as
+begin
+	select idProducto, nombre, precio, stock, descripcion, imagen from tb_producto where estado = 1
+end 
+go
+
+select * from tb_producto
