@@ -90,25 +90,49 @@ namespace ProyectoRefri.Controllers
             return View(model);
         }
 
-        // GET: ProductoController/Edit/5
-        public ActionResult Modificar(int id)
+
+        //METODO BUSCAR PARA MODIFICAR
+        ProductoModel Buscar(string id)
         {
-            return View();
+            ProductoModel? reg = ListarVAdmin().Where(x => x.idProducto == id).FirstOrDefault();
+            return reg;
+        }
+        // GET:
+        public async Task<IActionResult> Modificar(string id)
+        {
+            return View(await Task.Run(() => Buscar(id))); ;
         }
 
-        // POST: ProductoController/Edit/5
+        // POST:
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Modificar(int id, IFormCollection collection)
+        public async Task<IActionResult> Modificar(ProductoModel model)
         {
+            string mensaje = string.Empty;
+            SqlConnection cn = new SqlConnection(_confi["ConnectionStrings:cn"]);
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                SqlCommand cmd = new("usp_productos_actualizar", cn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", model.idProducto);
+                cmd.Parameters.AddWithValue("@nombre", model.nombre);
+                cmd.Parameters.AddWithValue("@precio", model.precio);
+                cmd.Parameters.AddWithValue("@stock", model.stock);
+                cmd.Parameters.AddWithValue("@descripcion", model.descripcion);
+                cmd.Parameters.AddWithValue("@estado", model.estado);
+                cn.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                mensaje = string.Format("Se modificó {0} productos", i);
+
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                mensaje = ex.Message;
+
             }
+            ViewBag.mensaje = mensaje;
+            return View(model);
         }
 
         // GET: ProductoController/Delete/5

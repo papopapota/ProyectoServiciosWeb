@@ -73,8 +73,8 @@
                         @Html.DisplayFor(modelItem => item.estado)
             </td>
             <td>
-                <a asp-action="#" asp-controller="#" class="btn btn-danger">Eliminar</a> |
-                <a asp-action="#" asp-controller="#" class="btn btn-warning">Modificar</a>
+                        @Html.ActionLink("Modificar", "Modificar", new { id=item.idProducto }, new { @class = "btn btn-warning" })
+          
             </td>
         </tr>
        }
