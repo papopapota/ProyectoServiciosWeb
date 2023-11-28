@@ -93,3 +93,65 @@ begin
         VALUES (source.Id, source.Nombre, source.Imagen, source.Preparacion);
 ;
 end
+
+
+-- ==========================================================================
+--- 		PROCEDIMIENTOS Daniel (USuario)
+-- ==========================================================================
+
+create procedure usp_ValidarUsuario (
+    @idusuario int 
+)
+as
+    begin
+    select * from tb_usuario where @idusuario = idusuario; 
+    end;
+
+
+create procedure usp_GenerarCodigo 
+as
+begin
+    select MAX(idusuario) max   from tb_usuario order by idusuario DESC
+end;
+
+create procedure usp_BuscarUsuario(
+@idUsuario int
+) 
+as
+begin
+    select *  from tb_usuario where idUsuario=  @idUsuario
+end;
+
+
+create procedure usp_ActualizarUsuario(
+@idUsuario int,
+@nombres varchar(100),
+@apellidos varchar(100),
+@email varchar(100),
+@telefono varchar(100),
+@contrasena varchar(100),
+@tipoUsuario int , 
+@estado int ,
+@idMembrecia int 
+) 
+as
+begin
+    update tb_usuario set idUsuario=@idUsuario ,
+nombres=@nombres ,apellidos=@apellidos ,email=@email ,telefono=@telefono ,contrasena=@contrasena ,tipoUsuario=@tipoUsuario ,estado=@estado ,idMembrecia=@idMembrecia  
+end;
+
+create procedure usp_RegistrarUsuario(
+@idUsuario int,
+@nombres varchar(100),
+@apellidos varchar(100),
+@email varchar(100),
+@telefono varchar(100),
+@contrasena varchar(100),
+@tipoUsuario int , 
+@estado int ,
+@idMembrecia int 
+) 
+as
+begin
+    insert into tb_usuario value (@idUsuario ,@nombres ,@apellidos ,@email ,@telefono ,@contrasena ,@tipoUsuario ,@estado ,@idMembrecia  
+end;
