@@ -53,22 +53,41 @@ namespace ProyectoRefri.Controllers
         // GET: ProductoController/Create
         public ActionResult Registrar()
         {
-            return View();
+            //ProductoModel producto = new ProductoModel();  
+            return View(new ProductoModel()); //producto
         }
 
         // POST: ProductoController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Registrar(IFormCollection collection)
+        public async Task<IActionResult> Registrar(ProductoModel model)
         {
+         
+                string mensaje = string.Empty;
+            SqlConnection cn = new SqlConnection(_confi["ConnectionStrings:cn"]);
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                SqlCommand cmd = new("usp_Productos_Agregar", cn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idProducto", model.idProducto);
+                cmd.Parameters.AddWithValue("@nombre", model.nombre);
+                cmd.Parameters.AddWithValue("@precio", model.precio);
+                cmd.Parameters.AddWithValue("@stock", model.stock);
+                cmd.Parameters.AddWithValue("@descripcion", model.descripcion);
+                cmd.Parameters.AddWithValue("@estado", model.estado);
+                cn.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                mensaje = string.Format("Se creó {0} productos", i);
+
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                mensaje = ex.Message;
+
             }
+            ViewBag.mensaje = mensaje;
+            return View(model);
         }
 
         // GET: ProductoController/Edit/5
@@ -160,8 +179,7 @@ namespace ProyectoRefri.Controllers
                     precio = dr.GetDouble(2),
                     stock = dr.GetInt32(3),
                     descripcion = dr.GetString(4),
-                    imagen = dr.GetString(5),
-                    estado = dr.GetBoolean(6)
+                    estado = dr.GetBoolean(5)
                 });
             }
             cn.Close();

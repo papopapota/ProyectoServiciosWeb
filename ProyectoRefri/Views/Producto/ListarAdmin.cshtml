@@ -22,7 +22,7 @@
 <h1 class="my-3">Listado Productos</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Nuevo Producto</a>
+    <a class="btn btn-primary" asp-action="Registrar">Nuevo Producto</a>
 </p>
 <table class="table table-bordered">
     <thead class="table-light">
@@ -42,9 +42,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.descripcion)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.imagen)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.estado)
             </th>
@@ -70,10 +68,7 @@
             <td>
                         @Html.DisplayFor(modelItem => item.descripcion)
             </td>
-            <td>
-                        @Html.DisplayFor(modelItem => item.imagen)
-
-            </td>
+            
             <td>
                         @Html.DisplayFor(modelItem => item.estado)
             </td>
