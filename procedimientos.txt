@@ -10,6 +10,34 @@ end
 go
 
 select * from tb_producto
+-- LISTA PRODUCTOS ADMIN
+create or alter procedure usp_productos_listaVAdmin
+as 
+begin
+	select idProducto, nombre, precio, stock, descripcion, estado from tb_producto;
+end
+go
+
+exec usp_productos_listaVAdmin
+go
+
+-- REGISTRAR PRODUCTOS
+create or alter procedure usp_Productos_Agregar
+@idProducto char(4),
+@nombre varchar(50),
+@precio float,
+@stock int,
+@descripcion varchar(100),
+@estado bit
+AS
+begin
+	insert tb_producto values (@idProducto, @nombre, @precio,@stock,@descripcion, null,@estado)
+end
+go
+
+
+
+
 
 --- PROCEDIMIENTOS CARLOS (CRUD RECETAS)
 
