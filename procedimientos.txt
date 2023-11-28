@@ -61,7 +61,16 @@ go
 -- ==========================================================================
 --- 		PROCEDIMIENTOS CARLOS (CRUD RECETAS)
 -- ==========================================================================
-ALTER proc [dbo].[sp_delete_receta]
+
+
+create proc sp_listar_receta
+as
+begin
+	select * from tb_receta
+end
+exec sp_listar_receta
+
+create or alter proc [dbo].[sp_delete_receta]
 @IdReceta char(4)
 as
 begin
