@@ -23,7 +23,7 @@ namespace ProyectoRefri.Models
         public string imagen { get; set; }
 
         [Display(Name = "Estado")]
-        public int estado { get; set; }
+        public Boolean estado { get; set; }
 
 
     }

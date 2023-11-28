@@ -10,11 +10,16 @@ namespace ProyectoRefri.Controllers
     public class ProductoController : Controller
     {
         private readonly IConfiguration _confi;
+         public ProductoController(IConfiguration confi)
+                {
+                    _confi = confi;
+                }
+        #region Acciones
 
-        public ProductoController(IConfiguration confi)
-        {
-            _confi = confi;
-        }
+
+
+        #endregion
+       
 
         //LISTAR CLIENTE VISTA 
         public async Task<ActionResult> ListarCliente()
@@ -25,9 +30,12 @@ namespace ProyectoRefri.Controllers
             return View(await Task.Run(() => ListarVCliente()));
         }
         //LISTAR ADMIN VISTA 
-        public ActionResult ListarAdmin() 
+        public async Task<ActionResult> ListarAdmin() 
         {
-            return View(); 
+            if (HttpContext.Session.GetString("Canasta") == null)
+                HttpContext.Session.SetString("Canasta", JsonConvert.SerializeObject(new List<ProductoModel>()));
+
+            return View(await Task.Run(() => ListarVAdmin()));
         }
 
         // GET: ProductoController
@@ -132,6 +140,35 @@ namespace ProyectoRefri.Controllers
             return lista;
 
         }
-            #endregion
+
+
+        IEnumerable<ProductoModel> ListarVAdmin()
+        {
+
+            List<ProductoModel> lista = new List<ProductoModel>();
+            SqlConnection cn = new(_confi["ConnectionStrings:cn"]);
+            SqlCommand cmd = new SqlCommand("usp_productos_listaVAdmin", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                lista.Add(new ProductoModel
+                {
+                    idProducto = dr.GetString(0),
+                    nombre = dr.GetString(1),
+                    precio = dr.GetDouble(2),
+                    stock = dr.GetInt32(3),
+                    descripcion = dr.GetString(4),
+                    imagen = dr.GetString(5),
+                    estado = dr.GetBoolean(6)
+                });
+            }
+            cn.Close();
+            return lista;
+
         }
+
+        #endregion
+    }
 }

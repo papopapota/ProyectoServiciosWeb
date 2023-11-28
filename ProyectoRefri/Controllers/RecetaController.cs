@@ -130,6 +130,7 @@ namespace ProyectoRefri.Controllers
             return View(await Task.Run(() => Recetas()));
         }
 
+
         public async Task<IActionResult> Create(RecetaModel model)
         {
 
