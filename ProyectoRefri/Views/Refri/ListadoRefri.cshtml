@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProyectoRefri.Models.RefriModel>
+
+@{
+    ViewData["Title"] = "ListadoRefri";
+}
+
+<h1>ListadoRefri</h1>
+
+<div class="container">
+    <br /><br />
+    <h2 class="mt-5">Refrigeradora</h2>
+
+    <a class="btn btn-success my-2" asp-controller="Producto" asp-action="ListarCliente">Seguir Agregando</a>
+
+    <div class="container">
+        <table class="table" ; style="border: 1px solid black;">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col" colspan="2">Comida</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td scope="row">@Html.DisplayFor(modelItem => item.idProducto)</td>
+                    <td><img src="@Url.Content(String.Format("~/img/{0}.jpg",item.idProducto))" class="card-img-top cuadrado" alt="Imagen no disponible"></td>
+                    <td colspan="2">@Html.DisplayFor(modelItem => item.nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.cantidad)</td>
+                    <td>
+                        <a href="#" class="btn btn-success btn-circle btn-lg">+</a>
+                        <a href="#" class="btn btn-danger btn-circle btn-lg">-</a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+</div>
