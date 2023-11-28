@@ -10,3 +10,66 @@ end
 go
 
 select * from tb_producto
+-- LISTA PRODUCTOS ADMIN
+create or alter procedure usp_productos_listaVAdmin
+as 
+begin
+	select idProducto, nombre, precio, stock, descripcion, estado from tb_producto;
+end
+go
+
+exec usp_productos_listaVAdmin
+go
+
+-- REGISTRAR PRODUCTOS
+create or alter procedure usp_Productos_Agregar
+@idProducto char(4),
+@nombre varchar(50),
+@precio float,
+@stock int,
+@descripcion varchar(100),
+@estado bit
+AS
+begin
+	insert tb_producto values (@idProducto, @nombre, @precio,@stock,@descripcion, null,@estado)
+end
+go
+
+
+
+
+
+--- PROCEDIMIENTOS CARLOS (CRUD RECETAS)
+
+ALTER proc [dbo].[sp_delete_receta]
+@IdReceta char(4)
+as
+begin
+	delete from tb_receta where idReceta = @IdReceta
+end
+
+
+ALTER proc [dbo].[sp_merge_receta](
+    @p_idReceta CHAR(4),
+    @p_nombre VARCHAR(50),
+    @p_imagen VARCHAR(100),
+    @p_preparacion VARCHAR(350)
+	)
+as
+begin
+-- Realizar la operación MERGE
+    MERGE INTO tb_receta AS target
+    USING (
+        VALUES (@p_idReceta, @p_nombre, @p_imagen, @p_preparacion)
+    ) AS source (Id, Nombre, Imagen, Preparacion)
+    ON target.idReceta = source.Id
+    WHEN MATCHED THEN
+        UPDATE SET 
+            target.nombre = source.Nombre, 
+            target.imagen = source.Imagen,
+            target.preparacion = source.Preparacion
+    WHEN NOT MATCHED THEN
+        INSERT (idReceta, nombre, imagen, preparacion)
+        VALUES (source.Id, source.Nombre, source.Imagen, source.Preparacion);
+;
+end
