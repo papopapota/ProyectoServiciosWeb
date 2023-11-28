@@ -1,4 +1,6 @@
--- PROCEDIMIENTOS BRAYAN (CRUD PRODUCTOS)
+-- =============================================================================
+--              PROCEDIMIENTOS BRAYAN (CRUD PRODUCTOS)
+-- =============================================================================
 use DB_RefriVirtual
 go
 
@@ -35,12 +37,30 @@ begin
 end
 go
 
+-- ACTUALIZAR PRODUCTOS
+create procedure usp_productos_actualizar
+@id char (4),
+@nombre varchar (50),
+@precio float,
+@stock int,
+@descripcion varchar (100),
+@estado bit
+as
+begin
+	update tb_producto set	nombre = @nombre, 
+							precio = @precio, 
+							stock = @stock, 
+							descripcion = @descripcion,
+							estado = @estado
+	where idProducto = @id;
+end
+go
 
 
 
-
---- PROCEDIMIENTOS CARLOS (CRUD RECETAS)
-
+-- ==========================================================================
+--- 		PROCEDIMIENTOS CARLOS (CRUD RECETAS)
+-- ==========================================================================
 ALTER proc [dbo].[sp_delete_receta]
 @IdReceta char(4)
 as
