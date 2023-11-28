@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using ProyectoRefri.Models;
 using System.Data;
+using System.Diagnostics;
 
 namespace ProyectoRefri.Controllers
 {
@@ -110,15 +111,32 @@ namespace ProyectoRefri.Controllers
         public bool Eliminar(string receta)
         {
             bool resp = false;
+            string mensaje = string.Empty;
+
             using (SqlConnection cnn = new SqlConnection(_confi["ConnectionStrings:cn"]))
             {
-                SqlCommand cmd = new SqlCommand("sp_delete_receta", cnn);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@IdReceta", receta);
-                cnn.Open();
-                resp = cmd.ExecuteNonQuery() != 0 ? true : false;
-                cnn.Close();
+                using (SqlCommand cmd = new SqlCommand("sp_delete_receta", cnn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdReceta", receta);
+
+                    try
+                    {
+                        cnn.Open();
+                        resp = cmd.ExecuteNonQuery() != 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Manejar la excepción, puedes registrarla o lanzarla nuevamente según tus necesidades.
+                        // También puedes agregar algún mensaje de registro o notificación de error.
+                        // Ejemplo: Logger.LogError(ex, "Error al intentar eliminar la receta.");
+                        System.Console.WriteLine(ex+ "Error al intentar eliminar la receta");
+                        mensaje = ex.Message;
+
+                    }
+                }
             }
+
             return resp;
         }
         #endregion
@@ -130,11 +148,14 @@ namespace ProyectoRefri.Controllers
             return View(await Task.Run(() => Recetas()));
         }
 
+        public async Task<IActionResult> Create(string id)
+        {
+            return View(await Task.Run(() => Buscar(id)));
+        }
+        [HttpPost]
         public async Task<IActionResult> Create(RecetaModel model)
         {
-
             string mensaje = string.Empty;
-
 
             using (SqlConnection cnn = new SqlConnection(_confi["ConnectionStrings:cn"]))
             {
@@ -142,10 +163,10 @@ namespace ProyectoRefri.Controllers
                 {
                     SqlCommand cmd = new SqlCommand("sp_merge_receta", cnn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@IdReceta", model.idReceta);
-                    cmd.Parameters.AddWithValue("@Nombre", model.nombre);
-                    cmd.Parameters.AddWithValue("@Imagen", model.imagen);
-                    cmd.Parameters.AddWithValue("@Preparacion", model.preparacion);
+                    cmd.Parameters.AddWithValue("@p_idReceta", model.idReceta);
+                    cmd.Parameters.AddWithValue("@p_nombre", model.nombre);
+                    cmd.Parameters.AddWithValue("@p_imagen", model.imagen);
+                    cmd.Parameters.AddWithValue("@p_preparacion", model.preparacion);
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
 
@@ -160,6 +181,10 @@ namespace ProyectoRefri.Controllers
             ViewBag.mensaje = mensaje;
             return View(model);
         }
+        public async Task<IActionResult> Edit(string id)
+        {
+            return View(await Task.Run(() => Buscar(id)));
+        }
         [HttpPost]
         public async Task<IActionResult> Edit(RecetaModel model)
         {
@@ -173,10 +198,10 @@ namespace ProyectoRefri.Controllers
                 {
                     SqlCommand cmd = new SqlCommand("sp_merge_receta", cnn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@IdReceta", model.idReceta);
-                    cmd.Parameters.AddWithValue("@Nombre", model.nombre);
-                    cmd.Parameters.AddWithValue("@Imagen", model.imagen);
-                    cmd.Parameters.AddWithValue("@Preparacion", model.preparacion);
+                    cmd.Parameters.AddWithValue("@p_idReceta", model.idReceta);
+                    cmd.Parameters.AddWithValue("@p_nombre", model.nombre);
+                    cmd.Parameters.AddWithValue("@p_imagen", model.imagen);
+                    cmd.Parameters.AddWithValue("@p_preparacion", model.preparacion);
                     cnn.Open();
                     int i = cmd.ExecuteNonQuery();
 
@@ -192,27 +217,16 @@ namespace ProyectoRefri.Controllers
             return View(model);
         }
         
-        public async Task<IActionResult> Edit(string id)
-        {
-            RecetaModel reg = Buscar(id);
-            if(reg == null)
-            {
-                return RedirectToAction("ListarRecetas");
-            }
-            return View(reg);
-        }
+        
         public async Task<IActionResult> Delete(string id)
         {
-            RecetaModel reg = Buscar(id);
-            if (reg == null)
-                return RedirectToAction("ListarRecetas");
-
-            return View(reg);
+            return View(await Task.Run(() => Buscar(id)));
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(RecetaModel receta)
         {
+            Trace.WriteLine("prueba");
             if (Eliminar(receta.idReceta))
             {
                 return RedirectToAction("ListarRecetas");
