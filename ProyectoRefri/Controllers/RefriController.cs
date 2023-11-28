@@ -26,7 +26,7 @@ namespace ProyectoRefri.Controllers
                 try {
                     SqlCommand cmd = new SqlCommand("usp_refri_mostraprod", cn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@idUsuario", 2);
+                    cmd.Parameters.AddWithValue("@idrefri", 2);
                     cn.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
@@ -50,9 +50,27 @@ namespace ProyectoRefri.Controllers
             return View(await Task.Run(() => Refrigeradora()));
         }
 
-
-
-
+        [HttpPost] public async Task<IActionResult> Create(string prod) 
+        {
+            string mensaje = string.Empty;
+            using (SqlConnection cn = new SqlConnection(_IConfig["ConnectionStrings:cn"]))
+            {
+                try 
+                {
+                    SqlCommand cmd = new SqlCommand("usp_merge_refriprod", cn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id", 1);
+                    cmd.Parameters.AddWithValue("@idProd", prod);
+                    cmd.Parameters.AddWithValue("@cantidad", 1);
+                    cn.Open();
+                    int c = cmd.ExecuteNonQuery();
+                    mensaje = $"Se ha insertado {c} producto ";
+                }
+                catch (Exception ex) { mensaje = ex.Message; }
+            }
+            ViewBag.mensaje = mensaje;
+            return View(await Task.Run(() => Refrigeradora()));
+        }
 
     }
 }

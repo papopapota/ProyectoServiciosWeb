@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoRefri.Models.ProductoModel>
+﻿    @model IEnumerable<ProyectoRefri.Models.ProductoModel>
 
 <link href="~/css/site.css" rel="stylesheet" />
 
@@ -38,9 +38,9 @@
                     </p>
                     <p class="card-text">Unidades disponibles: 
                         @Html.DisplayFor(modelItem => item.stock)</p>
-                   
 
-                <a href="#" class="btn btn-info">Refri</a>
+
+                    @Html.ActionLink("Refri","Create", "Refri", new {@class="btn btn-info", id = item.idProducto})
                 <a href="#" class="btn btn-success">Comprar</a>
             </div>
         </div>

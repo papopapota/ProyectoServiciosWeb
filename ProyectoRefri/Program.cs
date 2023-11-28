@@ -30,6 +30,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Producto}/{action=ListarAdmin}/{id?}");
+    pattern: "{controller=Producto}/{action=ListarCliente}/{id?}");
 
 app.Run();
