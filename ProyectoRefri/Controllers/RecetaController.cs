@@ -148,11 +148,6 @@ namespace ProyectoRefri.Controllers
             return View(await Task.Run(() => Recetas()));
         }
 
-        public async Task<IActionResult> Create(string id)
-        {
-            return View(await Task.Run(() => Buscar(id)));
-        }
-        [HttpPost]
         public async Task<IActionResult> Create(RecetaModel model)
         {
             string mensaje = string.Empty;
