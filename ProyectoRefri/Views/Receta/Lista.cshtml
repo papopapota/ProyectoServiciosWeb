@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.nombre)</h5>
                     <p class="card-text">@Html.DisplayFor(modelItem => item.preparacion)</p>
-                    <a href="@Url.Action("Edit", "Receta", new { id=item.idReceta })" class="btn btn-success">Ver Receta </a> <!-- DIRECCIONAR A DETALLE DE RECETA-->
+                    <a href="@Url.Action("Detail", "Receta", new { id=item.idReceta })" class="btn btn-success">Ver Receta </a> <!-- DIRECCIONAR A DETALLE DE RECETA-->
                 </div>
             </div>
         }

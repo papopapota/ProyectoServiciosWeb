@@ -1,0 +1,46 @@
+﻿@model ProyectoRefri.Models.RecetaModel
+
+@{
+    ViewData["Title"] = "Detail";
+}
+<div class="container mt-5">
+    <br /><br /><br /><br />
+<h1>Detail</h1>
+
+<div>
+    <h4>RecetaModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.idReceta)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.idReceta)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.imagen)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.imagen)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.preparacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.preparacion)
+        </dd>
+      
+        
+    </dl>
+</div>
+<div>
+   
+    <a asp-action="Lista">Back to List</a>
+</div>
+</div>

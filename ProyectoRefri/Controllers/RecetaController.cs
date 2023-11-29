@@ -42,9 +42,9 @@ namespace ProyectoRefri.Controllers
         {
             return View();
         }
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Detail(string id)
         {
-            return View();
+            return View(await Task.Run(() => Buscar(id)));
         }
 
         // VISTA INFORMACIÓN REFRI (DONDE SE VERAN CUANTAS COSAS TIENES EN TU REFRI equide)
@@ -54,7 +54,7 @@ namespace ProyectoRefri.Controllers
         }
 
         #endregion
-    
+
 
 
 
@@ -132,7 +132,7 @@ namespace ProyectoRefri.Controllers
                         // Manejar la excepción, puedes registrarla o lanzarla nuevamente según tus necesidades.
                         // También puedes agregar algún mensaje de registro o notificación de error.
                         // Ejemplo: Logger.LogError(ex, "Error al intentar eliminar la receta.");
-                        System.Console.WriteLine(ex+ "Error al intentar eliminar la receta");
+                        System.Console.WriteLine(ex + "Error al intentar eliminar la receta");
                         mensaje = ex.Message;
 
                     }
@@ -206,9 +206,7 @@ namespace ProyectoRefri.Controllers
 
         public async Task<IActionResult> Create(string id)
         {
-
-            ViewBag.productos = new SelectList(await Task.Run(() => ListarVAdmin()), "idProducto", "nombre");
-            return View(new ProductoModel());
+            return View(await Task.Run(() => Buscar(id)));
         }
         public async Task<IActionResult> Edit(string id)
         {
@@ -245,8 +243,8 @@ namespace ProyectoRefri.Controllers
             ViewBag.mensaje = mensaje;
             return View(model);
         }
-        
-        
+
+
         public async Task<IActionResult> Delete(string id)
         {
             return View(await Task.Run(() => Buscar(id)));
@@ -266,7 +264,7 @@ namespace ProyectoRefri.Controllers
             }
         }
 
-        
+
         #endregion
 
 

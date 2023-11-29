@@ -11,7 +11,7 @@ begin
 end 
 go
 
-select * from tb_producto
+
 -- LISTA PRODUCTOS ADMIN
 create or alter procedure usp_productos_listaVAdmin
 as 
@@ -36,6 +36,9 @@ begin
 	insert tb_producto values (@idProducto, @nombre, @precio,@stock,@descripcion, null,@estado)
 end
 go
+
+
+
 
 -- ACTUALIZAR PRODUCTOS
 create or alter procedure usp_productos_actualizar
@@ -68,7 +71,7 @@ as
 begin
 	select * from tb_receta
 end
-exec sp_listar_receta
+go
 
 create or alter proc [dbo].[sp_delete_receta]
 @IdReceta char(4)
@@ -76,6 +79,11 @@ as
 begin
 	delete from tb_receta where idReceta = @IdReceta
 end
+go
+
+
+
+
 
 
 create or ALTER proc [dbo].[sp_merge_receta](
@@ -102,19 +110,22 @@ begin
         VALUES (source.Id, source.Nombre, source.Imagen, source.Preparacion);
 ;
 end
-
+go
 
 -- ==========================================================================
 --- 		PROCEDIMIENTOS Daniel (USuario)
 -- ==========================================================================
 
 create or alter procedure usp_ValidarUsuario (
-    @idusuario int 
+    @usuario varchar (100),
+	@contrasena varchar (50)
 )
 as
     begin
-    select * from tb_usuario where @idusuario = idusuario; 
+    select * from tb_usuario where email = @usuario and contrasena = @contrasena; 
     end;
+go
+
 
 
 create or alter procedure usp_GenerarCodigo 
@@ -122,7 +133,7 @@ as
 begin
     select MAX(idusuario)+1 maximo  from tb_usuario order by maximo DESC
 end;
-
+go
 
 
 create or alter procedure usp_BuscarUsuario(
@@ -132,7 +143,7 @@ as
 begin
     select *  from tb_usuario where idUsuario=  @idUsuario
 end;
-
+go
 
 create or alter procedure usp_ActualizarUsuario(
 @idUsuario int,
@@ -150,6 +161,9 @@ begin
     update tb_usuario set idUsuario=@idUsuario ,
 nombres=@nombres ,apellidos=@apellidos ,email=@email ,telefono=@telefono ,contrasena=@contrasena ,tipoUsuario=@tipoUsuario ,estado=@estado ,idMembrecia=@idMembrecia  
 end;
+go
+
+
 
 create or alter procedure usp_RegistrarUsuario(
 @idUsuario int,
@@ -166,7 +180,7 @@ as
 begin
     insert into tb_usuario values (@idUsuario ,@nombres ,@apellidos ,@email ,@telefono ,@contrasena ,@tipoUsuario ,@estado ,@idMembrecia) 
 end;
-
+go
 
 -- =============================================================================
 --              PROCEDIMIENTOS Gerardo (refri)

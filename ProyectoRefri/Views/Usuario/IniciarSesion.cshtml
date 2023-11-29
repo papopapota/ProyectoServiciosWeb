@@ -22,7 +22,7 @@
         <div class="text-center">
             <h1>Inicia Sesion</h1>
         </div>
-        <form asp-action="IniciarSesion" class="mt-5">
+            <form asp-action="IniciarSesion" class="mt-5">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-4">
                 <label asp-for="email" class="control-label"></label>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group mb-4">
                 <label asp-for="contrasena" class="control-label"></label>
-                <input asp-for="contrasena" class="form-control" />
+                <input asp-for="contrasena" class="form-control" type="password" />
                 <span asp-validation-for="contrasena" class="text-danger"></span>
             </div>
             <div class="d-flex justify-content-center mt-5">

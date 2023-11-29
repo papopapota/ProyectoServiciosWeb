@@ -48,8 +48,10 @@ namespace ProyectoRefri.Controllers
         {
             return View(new UsuarioModel());
         }
-        public ActionResult IniciarSesion(UsuarioModel usurege)
+        [HttpPost]
+        public async Task<IActionResult>IniciarSesion(UsuarioModel usurege)
         {
+
             string connectionString = _confi["ConnectionStrings:cn"];
             SqlConnection cnn = new SqlConnection(connectionString);
             try
@@ -61,11 +63,23 @@ namespace ProyectoRefri.Controllers
                 cnn.Open();
                 SqlCommand cmd = new SqlCommand("usp_ValidarUsuario", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@usuario", usurege.email);
+                cmd.Parameters.AddWithValue("@contrasena", usurege.contrasena);
+
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
                     HttpContext.Session.SetString(SesionUsuario, Convert.ToString(usurege.idUsuario));
-                    return RedirectToAction("ListarCliente", "Producto");
+                   
+                    int tipoCliente = dr.GetInt32(6);
+                    if (tipoCliente == 1) {
+                        return RedirectToAction("ListarAdmin", "Producto");
+                    }else
+                    {
+                        return RedirectToAction("Lista", "Receta");
+
+                    }
+
                 }
                 else
                 {
@@ -73,7 +87,7 @@ namespace ProyectoRefri.Controllers
                     return RedirectToAction(nameof(IniciarSesion));
                 }
             }
-            catch
+            catch (Exception e)
             {
                 return View(usurege);
             }
