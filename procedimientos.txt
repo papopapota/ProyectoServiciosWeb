@@ -38,7 +38,7 @@ end
 go
 
 -- ACTUALIZAR PRODUCTOS
-create procedure usp_productos_actualizar
+create or alter procedure usp_productos_actualizar
 @id char (4),
 @nombre varchar (50),
 @precio float,
@@ -63,7 +63,7 @@ go
 -- ==========================================================================
 
 
-create proc sp_listar_receta
+create or alter proc sp_listar_receta
 as
 begin
 	select * from tb_receta
@@ -78,7 +78,7 @@ begin
 end
 
 
-ALTER proc [dbo].[sp_merge_receta](
+create or ALTER proc [dbo].[sp_merge_receta](
     @p_idReceta CHAR(4),
     @p_nombre VARCHAR(50),
     @p_imagen VARCHAR(100),
@@ -108,7 +108,7 @@ end
 --- 		PROCEDIMIENTOS Daniel (USuario)
 -- ==========================================================================
 
-create procedure usp_ValidarUsuario (
+create or alter procedure usp_ValidarUsuario (
     @idusuario int 
 )
 as
@@ -117,13 +117,15 @@ as
     end;
 
 
-create procedure usp_GenerarCodigo 
+create or alter procedure usp_GenerarCodigo 
 as
 begin
-    select MAX(idusuario) max   from tb_usuario order by idusuario DESC
+    select MAX(idusuario)+1 maximo  from tb_usuario order by maximo DESC
 end;
 
-create procedure usp_BuscarUsuario(
+
+
+create or alter procedure usp_BuscarUsuario(
 @idUsuario int
 ) 
 as
@@ -132,7 +134,7 @@ begin
 end;
 
 
-create procedure usp_ActualizarUsuario(
+create or alter procedure usp_ActualizarUsuario(
 @idUsuario int,
 @nombres varchar(100),
 @apellidos varchar(100),
@@ -149,7 +151,7 @@ begin
 nombres=@nombres ,apellidos=@apellidos ,email=@email ,telefono=@telefono ,contrasena=@contrasena ,tipoUsuario=@tipoUsuario ,estado=@estado ,idMembrecia=@idMembrecia  
 end;
 
-create procedure usp_RegistrarUsuario(
+create or alter procedure usp_RegistrarUsuario(
 @idUsuario int,
 @nombres varchar(100),
 @apellidos varchar(100),
@@ -162,8 +164,9 @@ create procedure usp_RegistrarUsuario(
 ) 
 as
 begin
-    insert into tb_usuario value (@idUsuario ,@nombres ,@apellidos ,@email ,@telefono ,@contrasena ,@tipoUsuario ,@estado ,@idMembrecia  
+    insert into tb_usuario values (@idUsuario ,@nombres ,@apellidos ,@email ,@telefono ,@contrasena ,@tipoUsuario ,@estado ,@idMembrecia) 
 end;
+
 
 -- =============================================================================
 --              PROCEDIMIENTOS Gerardo (refri)
@@ -191,5 +194,8 @@ when matched then
 when not matched then
 	Insert values(source.refri,source.prod,source.cantidad);
 go
+
+select * from tb_detalleRefri
+
 
 
