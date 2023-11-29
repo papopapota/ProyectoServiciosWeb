@@ -210,14 +210,14 @@ insert into tb_refri values(3, 3 );
 insert into tb_refri values(4, 4 ); 
 
 --tb_detalleRefri
-insert into tb_detalleRefri values(1, 1 , 'P001',10); 
-insert into tb_detalleRefri values(2, 1 , 'P002',10); 
-insert into tb_detalleRefri values(3, 2 , 'P003',10); 
-insert into tb_detalleRefri values(4, 2 , 'P001',10); 
-insert into tb_detalleRefri values(5, 3 , 'P001',10); 
-insert into tb_detalleRefri values(6, 3 , 'P003',10); 
-insert into tb_detalleRefri values(7, 4 , 'P001',10); 
-insert into tb_detalleRefri values(8, 4 , 'P005',10); 
+insert into tb_detalleRefri values(1 , 'P001',10); 
+insert into tb_detalleRefri values(1 , 'P002',10); 
+insert into tb_detalleRefri values(2 , 'P003',10); 
+insert into tb_detalleRefri values(2 , 'P001',10); 
+insert into tb_detalleRefri values(3 , 'P001',10); 
+insert into tb_detalleRefri values(3 , 'P003',10); 
+insert into tb_detalleRefri values(4 , 'P001',10); 
+insert into tb_detalleRefri values(4 , 'P005',10); 
 
 
 

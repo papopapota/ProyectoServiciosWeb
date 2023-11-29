@@ -164,3 +164,32 @@ as
 begin
     insert into tb_usuario value (@idUsuario ,@nombres ,@apellidos ,@email ,@telefono ,@contrasena ,@tipoUsuario ,@estado ,@idMembrecia  
 end;
+
+-- =============================================================================
+--              PROCEDIMIENTOS Gerardo (refri)
+-- =============================================================================
+
+create or alter procedure usp_refri_mostraprod 
+@idrefri int 
+as
+begin
+	select dt.idProducto, p.nombre, dt.cantidad from tb_detalleRefri as dt INNER JOIN tb_producto as p ON dt.idProducto = p.idProducto
+	where idRefri = @idrefri
+end
+go
+
+create or alter procedure usp_merge_refriprod
+@id int,
+@idProd char(4),
+@cantidad int
+as
+merge tb_detalleRefri as target
+using (Select @id,@idProd,@cantidad) AS source(refri, prod, cantidad)
+ON target.idRefri=source.refri AND target.idProducto=source.prod
+when matched then
+	update set target.idRefri=source.refri,target.idProducto=source.prod, target.cantidad=source.cantidad
+when not matched then
+	Insert values(source.refri,source.prod,source.cantidad);
+go
+
+
