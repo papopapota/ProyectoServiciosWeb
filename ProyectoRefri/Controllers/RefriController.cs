@@ -69,7 +69,7 @@ namespace ProyectoRefri.Controllers
                 catch (Exception ex) { mensaje = ex.Message; }
             }
             ViewBag.mensaje = mensaje;
-            return View(await Task.Run(() => Refrigeradora()));
+            return RedirectToAction("ListarRefri", "Refri");
         }
 
     }
