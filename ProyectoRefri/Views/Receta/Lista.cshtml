@@ -29,36 +29,18 @@
 
     <div class="listaProductos">
         <!-- AQUI VA EL FOR PARA REPETIR ESTA CARTA -->
-
-        <div class="card" style="flex-direction: row;">
-            <img src="../img/1.png" class="card-img-top cuadrado">
-            <div class="card-body">
-                <h5 class="card-title">Receta</h5>
-                <p class="card-text">Aqui va la descripcion de la Receta</p>
-                <a href="#" class="btn btn-success">Ver Receta </a> <!-- DIRECCIONAR A DETALLE DE RECETA-->
+        @foreach(var item in Model)
+        {
+            <div class="card" style="flex-direction: row;">
+                <img src="@Url.Content(String.Format("~/img/{0}.jpg",item.idReceta))" class="card-img-top cuadrado" alt="Imagen no disponible">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.nombre)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.preparacion)</p>
+                    <a href="@Url.Action("Edit", "Receta", new { id=item.idReceta })" class="btn btn-success">Ver Receta </a> <!-- DIRECCIONAR A DETALLE DE RECETA-->
+                </div>
             </div>
-        </div> <div class="card" style="flex-direction: row;">
-            <img src="../img/1.png" class="card-img-top cuadrado">
-            <div class="card-body">
-                <h5 class="card-title">Receta</h5>
-                <p class="card-text">Aqui va la descripcion de la Receta</p>
-                <a href="#" class="btn btn-info">Ver Receta </a> <!-- DIRECCIONAR A DETALLE DE RECETA-->
-            </div>
-        </div> <div class="card" style="flex-direction: row;">
-            <img src="../img/1.png" class="card-img-top cuadrado">
-            <div class="card-body">
-                <h5 class="card-title">Receta</h5>
-                <p class="card-text">Aqui va la descripcion de la Receta</p>
-                <a href="#" class="btn btn-info">Ver Receta </a> <!-- DIRECCIONAR A DETALLE DE RECETA-->
-            </div>
-        </div> <div class="card" style="flex-direction: row;">
-            <img src="../img/1.png" class="card-img-top cuadrado">
-            <div class="card-body">
-                <h5 class="card-title">Receta</h5>
-                <p class="card-text">Aqui va la descripcion de la Receta</p>
-                <a href="#" class="btn btn-info">Ver Receta </a> <!-- DIRECCIONAR A DETALLE DE RECETA-->
-            </div>
-        </div>
+        }
+        
         <!--LIMITAR LA CANTIDAD DE RECETAN QUE SALEN Y PONER UN BOTON DE VER MAS XD-->
 
     </div>

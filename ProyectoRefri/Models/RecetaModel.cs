@@ -19,6 +19,10 @@ namespace ProyectoRefri.Models
         [Required]
         [Display(Name = "Preparación")]
         public string preparacion { get; set; }
-       
+
+        [Required]
+        [Display(Name = "idProducto")]
+        public string idProducto { get; set; }
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 using ProyectoRefri.Models;
 using System.Data;
 using System.Diagnostics;
@@ -32,9 +34,9 @@ namespace ProyectoRefri.Controllers
         }
 
         //vista de LISTA en MENU PRINCIPAL
-        public ActionResult Lista()
+        public async Task<IActionResult> Lista()
         {
-            return View();
+            return View(await Task.Run(() => Recetas()));
         }
         public ActionResult Registrar()
         {
@@ -147,7 +149,32 @@ namespace ProyectoRefri.Controllers
         {
             return View(await Task.Run(() => Recetas()));
         }
+        IEnumerable<ProductoModel> ListarVAdmin()
+        {
 
+            List<ProductoModel> lista = new List<ProductoModel>();
+            SqlConnection cn = new(_confi["ConnectionStrings:cn"]);
+            SqlCommand cmd = new SqlCommand("usp_productos_listaVAdmin", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                lista.Add(new ProductoModel
+                {
+                    idProducto = dr.GetString(0),
+                    nombre = dr.GetString(1),
+                    precio = dr.GetDouble(2),
+                    stock = dr.GetInt32(3),
+                    descripcion = dr.GetString(4),
+                    estado = dr.GetBoolean(5)
+                });
+            }
+            cn.Close();
+            return lista;
+
+        }
+        [HttpPost]
         public async Task<IActionResult> Create(RecetaModel model)
         {
             string mensaje = string.Empty;
@@ -175,6 +202,13 @@ namespace ProyectoRefri.Controllers
 
             ViewBag.mensaje = mensaje;
             return View(model);
+        }
+
+        public async Task<IActionResult> Create(string id)
+        {
+
+            ViewBag.productos = new SelectList(await Task.Run(() => ListarVAdmin()), "idProducto", "nombre");
+            return View(new ProductoModel());
         }
         public async Task<IActionResult> Edit(string id)
         {
